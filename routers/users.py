@@ -87,7 +87,8 @@ async def read_user(user: user_dependency,
 
     if user_model is not None:
         return user_model
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                        detail="User not found")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
@@ -140,7 +141,8 @@ async def delete_user(user: user_dependency,
     user_model = db.query(Users).filter(Users.id == user_id).first()
 
     if user_model is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="User not found")
 
     db.delete(user_model)
     db.commit()
