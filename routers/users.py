@@ -34,6 +34,7 @@ class UserRequest(BaseModel):
     last_name: str
     password: str
     role: str
+    phone_number: str
 
 
 class PasswordRequest(BaseModel):
@@ -72,7 +73,8 @@ async def create_user(db: db_dependency, user_request: UserRequest = None):
         last_name=user_request.last_name,
         hashed_password=bcrypt_context.hash(user_request.password),
         role=user_request.role,
-        is_active=True
+        is_active=True,
+        phone_number=user_request.phone_number
     )
     db.add(create_user_model)
     db.commit()
@@ -96,6 +98,7 @@ async def update_user(user: user_dependency,
     user_model.first_name = user_request.first_name
     user_model.last_name = user_request.last_name
     user_model.role = user_request.role
+    user_model.phone_number = user_request.phone_number
 
     if user_request.password:
         user_model.hashed_password = bcrypt_context.hash(user_request.password)

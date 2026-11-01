@@ -59,7 +59,7 @@ def create_access_token(username: str,
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
-async def get_current_user(token: token_dependency):
+def get_current_user(token: token_dependency):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
 
